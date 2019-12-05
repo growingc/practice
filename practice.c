@@ -18,7 +18,7 @@ typedef struct {
 USER *findById(USER user[], int uid);
 GOODS *findByGid(GOODS goods[], int gid);
 float check(USER *user, GOODS *goods);
-void printmsg_s(GOODS *goods, int n);
+void printmsg_goods(GOODS *goods, int n);
 
 USER sampleUser[] = { {0, " ", 0, 1},  {1, "张三", 1, 0.9}, {2, "李四", 2, 0.95}};
 GOODS sampleGoods[] = { {1, "雀巢咖啡", 48, 0},  {2, "咖啡杯", 60, 1}, {3, "巧克力", 48.8, 1}, {4, "果粒茶", 118, 1}};
@@ -36,8 +36,8 @@ int main()
 	muser = findById(sampleUser, id);
 	if(muser)
 	{
-		printf("用户信息：");
-		printf("%d %s %d %.2f\n", muser->uid,muser->uname,muser->member,muser->ratio);
+		printf("客户信息：\n");
+		printf("客户ID:%d\n客户姓名：%s\n折扣：%.2f\n", muser->uid,muser->uname,muser->ratio);
 	}
 	while(key == 'y')
 	{	
@@ -61,7 +61,7 @@ int main()
 		igoods = findByGid(sampleGoods, gidnum[i][0]);
 		if(igoods)
 		{
-			printmsg_s(igoods, gidnum[i][1]);
+			printmsg_goods(igoods, gidnum[i][1]);
 			price += gidnum[i][1]*check(muser,igoods);
 		}	
 	}
@@ -81,7 +81,7 @@ USER *findById(USER user[],int uid)
 	
 	return 0;
 }
-/*通过商品ID查询用户信息*/
+/*通过商品编号查询商品信息*/
 GOODS *findByGid(GOODS goods[], int gid)
 {
 	int i;
@@ -103,7 +103,7 @@ float check(USER *user, GOODS *goods)
 	return count;
 }
 /*打印商品信息*/
-void printmsg_s(GOODS *goods, int n)
+void printmsg_goods(GOODS *goods, int n)
 {
 	printf("%d %s %.2f %d %d\n", goods->gid,goods->productname,goods->price,goods->producttype,n);	
 }
